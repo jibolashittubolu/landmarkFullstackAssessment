@@ -26,8 +26,36 @@ Ensure you have administrative privileges to install software and execute comman
 
 ## Installation Steps
 
-### 1. Clone the Repository
+### Clone the Repository
 
 Open your terminal or command prompt and run the following command to clone the GitHub repository:
+github.com/jibolashittubolu/landmarkFullstackAssessment.git
+
+### Install Dependencies
+
+Navigate to the project directory using the terminal or command prompt:
+cd <project-directory> && composer install
+
+### Start SQL server or Download Xammp(optional) and Run SQL server
+
+### Run Migrations and Seeders
+php artisan migrate 
+
+
+### Serve the Application
+In the terminal execute the following command:
+php artisan serve
+
+
+### Accessing the Website
+
+Open your web browser and navigate to `http://localhost:8000` to access the Laravel website.
+
+## Testing
+
+Once the website is running, you can test its functionality according to the requirements provided.
+
+## Additional Notes
+If you run into any issues, monitor the error messages and attempt resolving them or contact me at jibolashittubolu@gmail.com if the issue persists.
 
 
