@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         // Paginator::useBootstrap();
+        // Paginator::useBootstrapFour();
         // Paginator::useBootstrapFive();
     }
 }

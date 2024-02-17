@@ -48,19 +48,17 @@
             <div class="content-wrapper">
 
                 @if(session()->has('message'))
-
-                {{-- @else --}}
-                <div class="alert alert-success">
-                    <button
-                    type="button"
-                    class="close"
-                    data-dismiss="alert"
-                    aria-hidden="true">x</button>
-                    {{
-                    session()->get('message')
-                    }}
-                </div>
-
+                    {{-- @else --}}
+                    <div class="alert alert-success">
+                        <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-hidden="true">x</button>
+                        {{
+                        session()->get('message')
+                        }}
+                    </div>
                 @endif
 
                 <div class="div_center">

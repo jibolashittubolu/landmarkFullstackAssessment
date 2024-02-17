@@ -4,7 +4,7 @@
   <head>
     @include('admin.css')
 
-    <style>
+    <style type="text/css">
         .div_center{
             text-align: center;
             padding-top: 1rem ;
@@ -73,7 +73,6 @@
             <div class="content-wrapper">
 
                 @if(session()->has('message'))
-
                 {{-- @else --}}
                 <div class="alert alert-success">
                     <button
@@ -85,7 +84,6 @@
                     session()->get('message')
                     }}
                 </div>
-
                 @endif
 
                 <div class="div_center">

@@ -78,11 +78,13 @@
             class="nav-item">
                 <a
                 class="nav-link"
-                href="{{url('/view_product')}}">
+                href="{{url('/show_product')}}">
                     View Products
                 </a>
             </li>
-            <li class="nav-item"> <a class="nav-link" href="admin/pages//ui-features/dropdowns.html">Add Product</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('/view_product')}}">Add Product</a>
+            </li>
           </ul>
         </div>
       </li>

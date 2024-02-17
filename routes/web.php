@@ -38,7 +38,6 @@ Route::middleware([
 Route::get('/redirect', [HomeController::class, 'redirect']);
 
 //AdminController
-
     //category starts
 Route::get('/view_category', [AdminController::class, 'view_category']);
 
@@ -83,3 +82,26 @@ Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_pro
 // Route::get('/view_product/{id}', [AdminController::class, 'view_product']);
 
     //product ends
+//AdminController ends
+
+
+//HomeController starts
+
+    //product
+Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
+
+    //cart
+Route::get('/show_cart', [HomeController::class, 'show_cart']);
+
+    //cart
+Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+
+Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart']);
+
+Route::post('/modifyCartItemQuantity/{id}', [HomeController::class, 'modifyCartItemQuantity']);
+
+
+
+//HomeController ends
+
+
