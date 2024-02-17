@@ -53,7 +53,10 @@ Open your web browser and navigate to `http://localhost:8000` to access the Lara
 
 
 ### Admin Interface
-To login as admin, first access the website, then create a normal user account, then log in to the sql server interface via xammp or sql server workbench, then access the posv2 database, then the user table of the posv2 database. Change the userType to value '2'. The default is 1. 
+To login as admin, first access the website via `http://localhost:8000`. The login button is at the top navbar, then create a normal user account, then log in to the sql server interface via xammp or sql server workbench, then access the posv2 database, then the user table of the posv2 database. Change the userType to value '1'. The default is 0. 
+
+### Buyer Interface
+To login as a buyer, first access the website via `http://localhost:8000`. The login button is at the top navbar, then create a normal user account, then log in to the application to browse and make your purchase. 
 
 ## Testing
 
