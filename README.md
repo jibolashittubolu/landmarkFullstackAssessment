@@ -53,7 +53,7 @@ Open your web browser and navigate to `http://localhost:8000` to access the Lara
 
 
 ### Admin Interface
-To login as admin, first access the website, then create a normal user account
+To login as admin, first access the website, then create a normal user account, then log in to the sql server interface via xammp or sql server workbench, then access the posv2 database, then the user table of the posv2 database. Change the userType to value '2'. The default is 1. 
 
 ## Testing
 
