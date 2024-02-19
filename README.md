@@ -1,5 +1,7 @@
-# landmarkFullstackAssessment
+# Landmark Fullstack Assessment
 Landmark Fullstack Assessment
+
+# Note: The env file was intentionally added to this repository to facilate ease of testing
 
 
 # Setting Up and Running the Laravel Website
