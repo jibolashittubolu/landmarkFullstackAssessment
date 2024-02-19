@@ -110,10 +110,10 @@
                 class="th_deg">Action</th>
             </tr>
 
+            <?php $totalPrice=0; ?>
 
             @if ($cart)
                 @if ( count($cart) > 0 )
-                    <?php $totalPrice=0; ?>
                     @foreach ( $cart as $cart )
 
                     <tr>
@@ -170,7 +170,7 @@
                                     name="newCartItemQuantity"
                                     value="{{$cart->quantity}}"
                                     min="1"
-                                    {{-- max="{{$product->quantity}}" --}}
+                                    max="{{$cart->productRef ? $cart->productRef->quantity : '' }}"
                                     type="number" >
                                 </div>
 
@@ -178,10 +178,11 @@
 
                         </td>
                     </tr>
+
                     <?php $totalPrice = $totalPrice + $cart->price; ?>
                     @endforeach
                 @else
-                    <div>There are no products in your cart, please add some products</div>
+                    <div style="margin: auto; text-align:center; margin-top:2rem; font-size:2rem; font-weight:300;">There are no products in your cart, please add some products</div>
                 @endif
             @endif
 
@@ -193,6 +194,19 @@
             &#8358; {{$totalPrice}}
 
             </h1>
+
+        </div>
+        <div style="margin: auto; text-align:center; margin-bottom:2.5rem;">
+            <h1>Proceed to order</h1>
+            <a
+            href="{{url('/cash_order')}}"
+            onclick="
+            return confirm('Confirm order?')
+            "
+            class="btn btn-danger"> Cash on delivery</a>
+            <a
+            href="{{URL('/stripe', $totalPrice)}}"
+            class="btn btn-danger"> Pay with card</a>
         </div>
       </div>
 

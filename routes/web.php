@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
+// use App\Http\Controllers\StripePaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +78,16 @@ Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
 Route::get('/update_product/{id}', [AdminController::class, 'update_product']);
         //action
 Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_product_confirm']);
+    //product ends
+
+    //order starts
+Route::get('/order', [AdminController::class, 'order']);
+
+Route::post('/set-delivery-status/{id}', [AdminController::class, 'setDeliveryStatus']);
+
+
+Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
+
 
 
 // Route::get('/view_products', [AdminController::class, 'view_products']);
@@ -83,6 +95,21 @@ Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_pro
 
     //product ends
 //AdminController ends
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //HomeController starts
@@ -93,14 +120,27 @@ Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
     //cart
 Route::get('/show_cart', [HomeController::class, 'show_cart']);
 
-    //cart
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 
 Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart']);
 
 Route::post('/modifyCartItemQuantity/{id}', [HomeController::class, 'modifyCartItemQuantity']);
+    //cart
 
 
+    //order
+Route::get('/cash_order ', [HomeController::class, 'cash_order']);
+
+    //for cart page
+Route::get('/stripe/{totalPrice}', [HomeController::class, 'stripe']);
+
+
+
+// Route::controller(StripePaymentController::class)->group(function(){
+//     Route::get('stripe', 'stripe');
+//     Route::post('stripe', 'stripePost')->name('stripe.post');
+// });
+Route::post('stripe/{totalPrice}', [HomeController::class, 'stripePost'])->name('stripe.post');
 
 //HomeController ends
 

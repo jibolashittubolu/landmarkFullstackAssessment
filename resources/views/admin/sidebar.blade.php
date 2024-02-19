@@ -93,7 +93,7 @@
           <span class="menu-icon">
             <i class="mdi mdi-playlist-play"></i>
           </span>
-          <span class="menu-title">Category</span>
+          <span class="menu-title">Categories</span>
         </a>
       </li>
       <li class="nav-item menu-items">
@@ -101,7 +101,7 @@
           <span class="menu-icon">
             <i class="mdi mdi-playlist-play"></i>
           </span>
-          <span class="menu-title">Brand</span>
+          <span class="menu-title">Brands</span>
         </a>
       </li>
       <li class="nav-item menu-items">
@@ -109,7 +109,15 @@
           <span class="menu-icon">
             <i class="mdi mdi-playlist-play"></i>
           </span>
-          <span class="menu-title">Store</span>
+          <span class="menu-title">Stores</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ url('order') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Order</span>
         </a>
       </li>
 
