@@ -76,22 +76,34 @@
             <div class="content-wrapper">
 
                 @if(session()->has('message'))
-
-                {{-- @else --}}
-                <div class="alert alert-success">
-                    <button
-                    type="button"
-                    class="close"
-                    data-dismiss="alert"
-                    aria-hidden="true">x</button>
-                    {{
-                    session()->get('message')
-                    }}
-                </div>
-
+                    {{-- @else --}}
+                    <div class="alert alert-success">
+                        <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-hidden="true">x</button>
+                        {{
+                        session()->get('message')
+                        }}
+                    </div>
                 @endif
 
                 <h1 class="title_deg">All Orders</h1>
+
+                {{-- search field --}}
+                <div style=" display:flex; align-items:center; justify-content:center; margin-bottom:2rem;">
+                    <form
+                    style="color:black;"
+                    action="{{url('search')}}"
+                    method="GET"
+                    >
+                    @csrf
+                        <input type="text" name="search" placeholder="search for an item" />
+                        <input type="submit" value="Search" class="btn btn-primary" />
+                    </form>
+                </div>
+
                 <table style="border: 1px solid white; width: 100%; margin:auto; ">
                     <tr style="border-bottom: 1px solid white;">
                         <th >Name</th>
@@ -108,8 +120,9 @@
                         <th>Image</th>
                         <th>Delivered</th>
                         <th>Print Invoice/Receipt</th>
+                        <th>Send Email</th>
                     </tr>
-                    @foreach ($order as $order)
+                    @forelse ($order as $order)
                     <tr>
                         <td>{{$order->name}}</td>
                         <td>{{$order->email}}</td>
@@ -128,7 +141,6 @@
                             src="product/{{$order->productRef ?  $order->productRef->image : ''}}"
                             alt="product image"
                             />
-
                         </td>
                         <td>
                             {{-- <a
@@ -176,9 +188,25 @@
                             href="{{url('print_pdf', $order->id)}}"
                             class="btn btn-secondary" >Print</a>
                         </td>
+                        <td>
+                            <a
+                            href="{{url('send_email', $order->id)}}"
+                            class="btn btn-info">
+                            Send Email
+                            </a>
+                        </td>
                     </tr>
 
-                    @endforeach
+                    @empty
+                    <div>
+                        <tr>
+                            <td colspan="16">
+                                No data found
+                            </td>
+                        </tr>
+                    </div>
+
+                    @endforelse
                 </table>
 
 

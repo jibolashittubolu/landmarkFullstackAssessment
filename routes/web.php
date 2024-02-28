@@ -88,6 +88,10 @@ Route::post('/set-delivery-status/{id}', [AdminController::class, 'setDeliverySt
 
 Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
 
+Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
+
+Route::post('/send_user_email/{id}', [AdminController::class, 'send_user_email']);
+
 
 
 // Route::get('/view_products', [AdminController::class, 'view_products']);
@@ -98,6 +102,7 @@ Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
 
 
 
+Route::get('/search', [AdminController::class, 'searchdata']);
 
 
 
@@ -133,6 +138,18 @@ Route::get('/cash_order ', [HomeController::class, 'cash_order']);
 
     //for cart page
 Route::get('/stripe/{totalPrice}', [HomeController::class, 'stripe']);
+
+Route::get('/show_order ', [HomeController::class, 'show_order']);
+
+Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
+
+
+Route::post('/add_comment', [HomeController::class, 'add_comment']);
+
+Route::post('/add_reply', [HomeController::class, 'add_reply']);
+
+Route::get('/product_search', [HomeController::class, 'product_search']);
+
 
 
 

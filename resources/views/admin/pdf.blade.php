@@ -48,11 +48,11 @@
         <div>
             Delivery status: <h3>{{$order->delivery_status }}</h3>
         </div>
-        <img
+        {{-- <img
             style="height: 200px; width:200px;"
             src="product/{{$order->image }}"
             alt="product image"
-        >
+        > --}}
         {{-- <div>
             <img
             style="height: 200px; width:200px;"

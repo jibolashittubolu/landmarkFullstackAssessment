@@ -4,6 +4,25 @@
             <h2>
                 Our <span>products</span>
             </h2>
+            <br/>
+            <br/>
+            <div>
+                <form
+                action="{{url('product_search')}}"
+                method="GET"
+                >
+                    @csrf
+                    <input
+                    name="search"
+                    type="text"
+                    placeholder="search for product"
+                    style="min-width:3rem; width:33rem;"
+                    />
+                    <input
+                    type="submit"
+                    value="Search" />
+                </form>
+            </div>
         </div>
         <div class="row">
 

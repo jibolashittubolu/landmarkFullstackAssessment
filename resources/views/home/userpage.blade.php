@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
+
       <!-- Basic -->
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,6 +23,19 @@
       <link href="home/css/responsive.css" rel="stylesheet" />
    </head>
    <body>
+      @if(session()->has('message'))
+      {{-- @else --}}
+      <div class="alert alert-success">
+          <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-hidden="true">x</button>
+          {{
+          session()->get('message')
+          }}
+      </div>
+      @endif
       <div class="hero_area">
          <!-- header section strats -->
          @include('home.header')
@@ -42,6 +56,11 @@
       @include('home.product')
       <!-- end product section -->
 
+
+      {{-- Comment and reply sytem starts --}}
+      @include('home.commentAndReplySystem')
+      {{-- Comment and reply ends --}}
+
       <!-- subscribe section -->
       @include('home.subscribe')
       <!-- end subscribe section -->
@@ -61,6 +80,8 @@
 
          </p>
       </div>
+
+
       <!-- jQery -->
       <script src="home/js/jquery-3.4.1.min.js"></script>
       <!-- popper js -->
@@ -69,5 +90,20 @@
       <script src="home/js/bootstrap.js"></script>
       <!-- custom js -->
       <script src="home/js/custom.js"></script>
+      <script>
+        // Store scroll position before refresh
+        window.addEventListener('beforeunload', function() {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        });
+
+        // Restore scroll position after refresh
+        window.addEventListener('load', function() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, scrollPosition);
+                sessionStorage.removeItem('scrollPosition'); // Clear the stored position
+            }
+        });
+        </script>
    </body>
 </html>

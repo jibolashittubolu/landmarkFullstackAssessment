@@ -33,6 +33,12 @@
                     class="nav-link"
                     >Cart</a>
                  </li>
+                 <li class="nav-item">
+                    <a
+                    href="{{url('show_order')}}"
+                    class="nav-link"
+                    >Order</a>
+                 </li>
                 @include('home.cartIcon')
                 <form class="form-inline">
                     <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">

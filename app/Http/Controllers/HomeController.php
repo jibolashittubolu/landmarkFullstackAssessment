@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Comment;
+use App\Models\Reply;
 
 use Illuminate\Support\Facades\Log; // Import Log facade
 
@@ -42,16 +44,57 @@ class HomeController extends Controller
             // return view('welcome');
 
             if($usertype == '1'){
-                return view('admin.home');
+
+                $compactedArray= [];
+
+                $total_product = Product::all()->count();
+                $total_order = Order::all()->count();
+                $total_user = User::all()->count();
+
+                $compactedArray['total_product'] = $total_product;
+                $compactedArray['total_order'] = $total_order;
+                $compactedArray['total_user'] = $total_user;
+
+                // $order = Order::where('payment_status', 'paid')->get();
+                $order = Order::all();
+                $total_revenue = 0;
+                $potentialRevenue = 0;
+                foreach($order as $orderItem){
+                    if($orderItem->payment_status == 'paid'){
+                        $total_revenue += $orderItem->price;
+                    }
+                    $potentialRevenue += $orderItem->price;
+                }
+                $unpaidOrderRevenue = $potentialRevenue - $total_revenue;
+
+                $compactedArray['total_revenue'] = $total_revenue;
+                $compactedArray['potentialRevenue'] = $potentialRevenue;
+                $compactedArray['unpaidOrderRevenue'] = $unpaidOrderRevenue;
+
+
+                $total_delivered = Order::where('delivery_status', '=', 'delivered')->get()->count();
+                $compactedArray['total_delivered'] = $total_delivered;
+
+
+                $total_processing = Order::where('delivery_status', '=', 'processing')->get()->count();
+                $compactedArray['total_processing'] = $total_processing;
+
+
+
+
+                return view('admin.home', compact('compactedArray'));
             }
             else{
+                $comment = Comment::orderby('id', 'desc')->get();
+                $reply = Reply::all();
                 $product = Product::paginate(6);
-                return view('home.userpage', compact('product'));
+                return view('home.userpage', compact('product', 'comment', 'reply'));
                 // return view('dashboard');
                 // return view('admin.home');
             }
         }
         catch(Exception $e){
+            // dd($e);
             \Log::error('Error occurred: ' . $e->getMessage());
             return back()->with('message', 'Sorry, an error occurred. Please try again later.');
         }
@@ -59,9 +102,17 @@ class HomeController extends Controller
 
 
     public function product_details($id){
-        $product = Product::find($id);
+        try{
 
-        return view("home.product_details", compact("product"));
+            $product = Product::find($id);
+
+            return view("home.product_details", compact("product"));
+        }
+        catch(Exception $e){
+            // dd($e);
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
     }
 
 
@@ -372,5 +423,130 @@ class HomeController extends Controller
         return back();
     }
 
+
+    public function show_order(){
+        try{
+
+            if(Auth::id()){
+                $user = Auth::user();
+                $userid = $user->id;
+                $order = Order::where('user_id', '=', $userid)->get();
+
+                return view('home.order', compact('order'));
+            }
+
+            //else
+            return redirect('login');
+        }
+        catch(Exception $e){
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
+
+    }
+
+
+    public function cancel_order($id){
+        try{
+
+            if(!(Auth::id())){
+                return redirect('login');
+            }
+            $order = Order::find($id);
+            $order->delivery_status = 'Canceled';
+
+            $order->save();
+
+            //Before canceling lets check if the auth.id is belongs to the user or if the canceller is an admin
+
+            return redirect()->back()->with('message','You cancelled the oreder');
+
+        }
+        catch(Exception $e){
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
+
+    }
+
+
+    public function add_comment(Request $request){
+        try{
+
+            if(!(Auth::id())){
+                return redirect('login');
+            }
+
+            $comment = new Comment;
+            $comment->name = Auth::user()->name;
+            $comment->user_id = Auth::user()->id;
+            $comment->comment = $request->comment;
+
+            $comment->save();
+
+            //Before canceling lets check if the auth.id is belongs to the user or if the canceller is an admin
+
+            return redirect()->back()->with('message','You have added a comment');
+
+        }
+        catch(Exception $e){
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
+    }
+
+
+
+    public function add_reply(Request $request){
+        try{
+
+            if(!(Auth::id())){
+                return redirect('login');
+            }
+
+            $reply = new Reply;
+            $reply->name = Auth::user()->name;
+            $reply->user_id = Auth::user()->id;
+            $reply->comment_id = $request->commentId;
+            $reply->reply = $request->reply;
+
+            $reply->save();
+
+            //Before canceling lets check if the auth.id is belongs to the user or if the canceller is an admin
+
+            return redirect()->back()->with('message','You have replied to a comment');
+
+        }
+        catch(Exception $e){
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
+    }
+
+
+    public function product_search(Request $request){
+        try{
+
+            $search_text = $request->search;
+
+            $product =
+            Product::where('title', 'LIKE', "%$search_text%")
+            ->orWhere('description', 'LIKE', "%$search_text%")
+            ->orWhere('category', 'LIKE', "%$search_text%")
+            ->orWhere('productBrand', 'LIKE', "%$search_text%")
+            ->orWhere('productStore', 'LIKE', "%$search_text%")
+            ->paginate(10);
+
+
+            $comment = Comment::orderby('id', 'desc')->get();
+            $reply = Reply::all();
+            return view('home.userpage', compact('product', 'comment', 'reply'));
+
+        }
+        catch(Exception $e){
+            \Log::error('Error occurred: ' . $e->getMessage());
+            return back()->with('message', 'Sorry, an error occurred. Please try again later.');
+        }
+    }
 
 }
