@@ -8,4 +8,4 @@ npm run dev
 
 changes in User table
 
-php artisan migrate
+php artisan migrate 
