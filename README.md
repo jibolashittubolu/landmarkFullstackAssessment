@@ -22,6 +22,7 @@ Before proceeding, please ensure that you have the following software and access
 
 - **Composer**: Install Composer, a dependency manager for PHP. You can download it from the official Composer website: [getcomposer.org](https://getcomposer.org/download/).
 
+
 - **MySQL or Compatible Database Server**: Install MySQL or another compatible database server for storing application data. You can download MySQL from the official MySQL website: [mysql.com](https://dev.mysql.com/downloads/mysql/).
 
 - **Git**: Install Git for version control. You can download it from the official Git website: [git-scm.com](https://git-scm.com/downloads).
